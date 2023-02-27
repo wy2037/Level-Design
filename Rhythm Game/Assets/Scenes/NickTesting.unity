@@ -932,7 +932,8 @@ MonoBehaviour:
   beatType: 2
   loopTime: 30
   audioSource: {fileID: 1650023697}
-  observers: []
+  observers:
+  - {fileID: 287269866}
 --- !u!114 &1650023700
 MonoBehaviour:
   m_ObjectHideFlags: 0
