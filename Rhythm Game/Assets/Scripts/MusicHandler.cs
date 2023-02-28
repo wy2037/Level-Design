@@ -5,6 +5,8 @@ using SynchronizerData;
 
 public class MusicHandler : MonoBehaviour
 {
+	public static MusicHandler m;
+
 	public BeatValue beatValue = BeatValue.QuarterBeat;
 	public int beatScalar = 1;
 	public BeatValue beatOffset = BeatValue.None;
@@ -12,15 +14,19 @@ public class MusicHandler : MonoBehaviour
 	public BeatType beatType = BeatType.OnBeat;
 	public float loopTime = 30f;
 	public AudioSource audioSource;
-	public GameObject[] observers;
+	public List<GameObject> observers = new List<GameObject>();
 
 	private float nextBeatSample;
 	private float samplePeriod;
 	private float sampleOffset;
 	private float currentSample;
 
+    private void Start()
+    {
+		m = this;
+    }
 
-	void Awake()
+    void Awake()
 	{
 		// Calculate number of samples between each beat.
 		float audioBpm = audioSource.GetComponent<BeatSynchronizer>().bpm;
@@ -100,4 +106,16 @@ public class MusicHandler : MonoBehaviour
 		}
 	}
 
+
+	public void addObserver(GameObject gObj)
+    {
+		Debug.Log("Added " + gObj.name);
+		observers.Add(gObj);
+    }
+
+	public void removeObserver(GameObject gObj)
+    {
+		Debug.Log("Removed " + gObj.name);
+		observers.Remove(gObj);
+    }
 }
