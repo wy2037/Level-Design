@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float horizontal, vertical, direction;
+    float horizontal, vertical, direction, beat;
     public float speed, jumpForce, rotationSpeed;
     bool canRotate = true;
     public bool canMove = true;
@@ -13,11 +13,13 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public Transform sprite;
     public GameObject groundCheck;
-    public float groundCheckRadius;
+    public float groundCheckRadius, maxBeat;
     public bool isGrounded = false;
     Vector3 Rotation;
 
-
+    void Start() {
+        beat = maxBeat;
+    }
 
     void Update() {
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckRadius, groundLayer);
@@ -32,7 +34,8 @@ public class Player : MonoBehaviour
             Rotation.z = Mathf.Round(Rotation.z/90) * 90;
             sprite.rotation = Quaternion.Euler(Rotation);
             canMove = true;
-            if (Input.GetKeyDown("space")) {
+            if (beat <= 0) {
+                beat = maxBeat;
                 rb.AddForce(new Vector2(0, jumpForce));
                 if (rb.velocity.x > 0) {
                     direction = 1;
@@ -48,6 +51,10 @@ public class Player : MonoBehaviour
             } else {
                 sprite.Rotate(Vector3.back * rotationSpeed * -1);
             }
+        }
+
+        if (beat > 0) {
+            beat -= Time.deltaTime;
         }
     }
 
