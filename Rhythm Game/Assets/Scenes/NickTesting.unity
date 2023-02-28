@@ -1018,6 +1018,7 @@ MonoBehaviour:
   sprite: {fileID: 788681088}
   groundCheck: {fileID: 1539490427}
   groundCheckRadius: 0.25
+  maxBeat: 4
   isGrounded: 0
 --- !u!50 &1861897742
 Rigidbody2D:
