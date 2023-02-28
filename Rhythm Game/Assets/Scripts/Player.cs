@@ -45,8 +45,10 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown("space"))
             {
-                if (beat <= 0) {
+                if (beat <= 0)
+                {
                     beat = maxBeat;
+                }
                 rb.AddForce(new Vector2(0, jumpForce));
                 if (rb.velocity.x > 0)
                 {
@@ -79,7 +81,7 @@ public class Player : MonoBehaviour
             grooveCounter = 0;
             Debug.Log(grooveCounter);
             hasGrooved = true;
-
+        }
         if (beat > 0) {
             beat -= Time.deltaTime;
         }
