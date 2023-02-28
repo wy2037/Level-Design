@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SynchronizerData;
 
 public class Player : MonoBehaviour
 {
@@ -17,7 +18,13 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     Vector3 Rotation;
 
-    void Start() {
+    BeatObserver obs;
+    float grooveCounter = 0;
+    bool hasGrooved = false;
+
+    void Start()
+    {
+        obs = GetComponent<BeatObserver>();
         beat = maxBeat;
     }
 
@@ -30,18 +37,27 @@ public class Player : MonoBehaviour
 
         if (isGrounded)
         {
+            hasGrooved = false;
             Rotation = sprite.rotation.eulerAngles;
             Rotation.z = Mathf.Round(Rotation.z/90) * 90;
             sprite.rotation = Quaternion.Euler(Rotation);
             canMove = true;
-            if (beat <= 0) {
-                beat = maxBeat;
+
+            if (Input.GetKeyDown("space"))
+            {
+                if (beat <= 0) {
+                    beat = maxBeat;
                 rb.AddForce(new Vector2(0, jumpForce));
-                if (rb.velocity.x > 0) {
+                if (rb.velocity.x > 0)
+                {
                     direction = 1;
-                } else if (rb.velocity.x < 0) {
+                }
+                else if (rb.velocity.x < 0)
+                {
                     direction = 0;
-                } else {
+                }
+                else
+                {
                     direction = Random.Range(0, 2);
                 }
             }
@@ -52,6 +68,17 @@ public class Player : MonoBehaviour
                 sprite.Rotate(Vector3.back * rotationSpeed * -1);
             }
         }
+        if ((obs.beatMask & BeatType.OnBeat) == BeatType.OnBeat && !isGrounded && !hasGrooved)
+        {
+            grooveCounter++;
+            Debug.Log(grooveCounter);
+            hasGrooved = true;
+        }
+        else if ((obs.beatMask & BeatType.OnBeat) == BeatType.OffBeat && !isGrounded && !hasGrooved)
+        {
+            grooveCounter = 0;
+            Debug.Log(grooveCounter);
+            hasGrooved = true;
 
         if (beat > 0) {
             beat -= Time.deltaTime;
