@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
             Debug.Log(grooveCounter);
             hasGrooved = true;
         }
-        else if ((obs.beatMask & BeatType.OnBeat) == BeatType.OffBeat && !isGrounded && !hasGrooved)
+        else if ((obs.beatMask & BeatType.OnBeat) == BeatType.OnBeat && !isGrounded && !hasGrooved)
         {
             grooveCounter = 0;
             Debug.Log(grooveCounter);
