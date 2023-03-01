@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NickTesting.unity
     guid: 2d39ce543bb83c748a491e9aa25036b8
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 694268447e1ca5844b9affb6ddda8b98
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 8ea2b614612f1d945a02f00609ab3339
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: f7bac851395d9694c9439c01c02bf55f
   m_configObjects: {}
