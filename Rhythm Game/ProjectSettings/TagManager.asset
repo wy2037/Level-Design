@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Platform
   - MusicHandler
+  - Red
+  - Green
+  - Blue
+  - Barrier
   layers:
   - Default
   - TransparentFX
