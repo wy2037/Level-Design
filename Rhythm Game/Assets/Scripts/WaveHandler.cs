@@ -44,6 +44,6 @@ public class WaveHandler : MonoBehaviour
     IEnumerator nextStage()
     {
         yield return new WaitForSeconds(4.0f);
-        SceneManager.LoadScene("Will 2");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
