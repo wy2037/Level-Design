@@ -98,6 +98,7 @@ public class MusicHandler : MonoBehaviour
 				foreach (GameObject obj in observers)
 				{
 					obj.GetComponent<BeatObserver>().BeatNotify(beatType);
+					//Debug.Log(beatType);
 				}
 				nextBeatSample += samplePeriod;
 			}

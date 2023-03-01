@@ -21,9 +21,14 @@ public class Player : MonoBehaviour
     BeatObserver obs;
     float grooveCounter = 0;
     bool hasGrooved = false;
+    bool stopDec = false;
+
+    public GameObject shieldSprite;
+    public bool shielded = false;
 
     void Start()
     {
+        shieldSprite.SetActive(false);
         obs = GetComponent<BeatObserver>();
         beat = maxBeat;
     }
@@ -41,6 +46,10 @@ public class Player : MonoBehaviour
             Rotation = sprite.rotation.eulerAngles;
             Rotation.z = Mathf.Round(Rotation.z/90) * 90;
             sprite.rotation = Quaternion.Euler(Rotation);
+            if(shielded)
+            {
+                shieldSprite.transform.rotation = Quaternion.Euler(Rotation);
+            }
             canMove = true;
 
             if (Input.GetKeyDown("space"))
@@ -66,22 +75,42 @@ public class Player : MonoBehaviour
         } else {
             if (direction == 1f) {
                 sprite.Rotate(Vector3.back * rotationSpeed);
+                if (shielded)
+                {
+                    shieldSprite.transform.Rotate(Vector3.back * rotationSpeed);
+                }
             } else {
                 sprite.Rotate(Vector3.back * rotationSpeed * -1);
+                if (shielded)
+                {
+                    shieldSprite.transform.Rotate(Vector3.back * rotationSpeed * -1);
+                }
             }
         }
-        if ((obs.beatMask & BeatType.OnBeat) == BeatType.OnBeat && !isGrounded && !hasGrooved)
+        if ((obs.beatMask) == BeatType.OnBeat && !isGrounded && !hasGrooved)
         {
-            grooveCounter++;
-            Debug.Log(grooveCounter);
-            hasGrooved = true;
+            if (grooveCounter < 4)
+            {
+                grooveCounter++;
+                hasGrooved = true;
+            }
+            if (grooveCounter == 4)
+            {
+                shielded = true;
+                shieldSprite.SetActive(true);
+            } else
+            {
+                shielded = false;
+                shieldSprite.SetActive(false);
+            }
         }
-        else if ((obs.beatMask & BeatType.OnBeat) == BeatType.OnBeat && !isGrounded && !hasGrooved)
-        {
-            grooveCounter = 0;
-            Debug.Log(grooveCounter);
-            hasGrooved = true;
-        }
+       // if ((obs.beatMask == BeatType.None) & !isGrounded)
+       // {
+       //     if (!stopDec)
+       //     {
+       //         Debug.Log("Test");
+       //     }
+       // }
         if (beat > 0) {
             beat -= Time.deltaTime;
         }
@@ -92,6 +121,11 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Hit enemy");
+            if (shielded)
+            {
+                Debug.Log("Hit shield");
+                grooveCounter = 0;
+            }
         }
     }
 }

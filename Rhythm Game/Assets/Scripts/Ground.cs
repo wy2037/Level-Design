@@ -10,6 +10,7 @@ public class Ground : MonoBehaviour
     private SpriteRenderer spr;
     private Color baseCol;
     bool beatHit = false;
+    public float beatCount = 0;
     void Start()
     {
         obs = GetComponent<BeatObserver>();
@@ -23,10 +24,12 @@ public class Ground : MonoBehaviour
         if ((obs.beatMask & BeatType.OnBeat) == BeatType.OnBeat && beatHit == false)
         {
            StartCoroutine(colorPulse());
+            beatCount++;
+            Debug.Log(beatCount);
+            PublicVars.beatCount = beatCount;
         }
         if (beatHit)
         {
-
             spr.color = new Color(spr.color.r - .004f, spr.color.g - .004f, spr.color.b - .004f);
         }
     }
