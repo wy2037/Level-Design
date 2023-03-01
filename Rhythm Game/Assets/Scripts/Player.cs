@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     {
         obs = GetComponent<BeatObserver>();
         beat = maxBeat;
+        rotationSpeed = 10f;
     }
 
     void Update() {
