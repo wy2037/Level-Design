@@ -169,7 +169,7 @@ MonoBehaviour:
   groundCheckRadius: 0.25
   maxBeat: 4
   isGrounded: 0
-  shieldSprite: {fileID: 0}
+  shieldSprite: {fileID: 2291081724198263458}
   shielded: 0
   grooveBar:
   - {fileID: 2291081725286114280}
