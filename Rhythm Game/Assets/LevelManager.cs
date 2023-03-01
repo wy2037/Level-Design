@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     int index = 0;
-    float currentTime;
+    public float currentTime;
     public float songTime;
     public float[] timeStamps, direction, speed;
     public GameObject[] obstacles;
