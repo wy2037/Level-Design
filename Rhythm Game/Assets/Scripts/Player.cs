@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SynchronizerData;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -101,7 +102,7 @@ public class Player : MonoBehaviour
             {
                 grooveCounter++;
             }
-            speed = baseSpeed + (grooveCounter * 2);
+            speed = baseSpeed + (grooveCounter);
             if (grooveCounter == 4)
             {
                 shielded = true;
@@ -112,7 +113,6 @@ public class Player : MonoBehaviour
                 shielded = false;
                 shieldSprite.SetActive(false);
             }
-            Debug.Log(grooveCounter);
         }
         if (grooveCounter == 0)
         {
@@ -150,7 +150,16 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Hit enemy");
+            if (shielded)
+            {
+                shielded = false;
+                grooveCounter = 0;
+                shieldSprite.SetActive(false);
+            } else
+            {
+                SceneManager.LoadScene("Game Over");
+            }
+            
         }
         if (collision.gameObject.CompareTag("Barrier"))
         {
@@ -163,6 +172,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Barrier"))
         {
             canMove = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            canMove = true;
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveHandler : MonoBehaviour
 {
@@ -30,11 +31,19 @@ public class WaveHandler : MonoBehaviour
         {
             waves[2].SetActive(true);
         }
-        if (PublicVars.beatCount == 48)
+        if (PublicVars.beatCount == 40)
         {
             waves[3].SetActive(true);
+        } 
+        if(PublicVars.beatCount >= 50)
+        {
+            StartCoroutine(nextStage());
         }
+    }
 
-
+    IEnumerator nextStage()
+    {
+        yield return new WaitForSeconds(4.0f);
+        SceneManager.LoadScene("Will 2");
     }
 }
