@@ -30,7 +30,7 @@ public class Ground : MonoBehaviour
         if (beatHit)
         {
 
-            spr.color = new Color(spr.color.r - .008f, spr.color.g - .008f, spr.color.b - .008f);
+            spr.color = new Color(spr.color.r - .009f, spr.color.g - .009f, spr.color.b - .009f);
         }
     }
 
